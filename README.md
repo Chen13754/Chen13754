@@ -1,6 +1,3 @@
-<div align="center">
-  <img src="assets/avatar.jpeg" width="150" style="border-radius: 50%;" alt="Chen Yuyang avatar" />
-
 # 🌸 Hi, I'm Chen Yuyang
 
 ### HKUST DSCT · Exchange @ TUM · AI Theory & Generative Models
