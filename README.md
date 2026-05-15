@@ -1,4 +1,4 @@
-# 🌸 Hi, I'm Chen Yuyang
+# 🌸 Hi, I'm Yuyang
 
 ### HKUST DSCT · Exchange @ TUM · AI Theory & Generative Models
 
