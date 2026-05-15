@@ -19,9 +19,7 @@ I enjoy understanding AI from both mathematical and system perspectives. My curr
 
 - 🌙 **Deep Learning Theory** and foundation models
 - 🍓 **Generative Models**, especially diffusion models
-- 🧩 **Reinforcement Learning** and agentic AI
 - 📈 **Probabilistic Modeling**, statistics, and Bayesian methods
-- 🌐 **Random Walks, Percolation, and Graph-based Processes**
 
 > “Stay curious, keep exploring, turn ideas into impact.” ✨
 
@@ -34,28 +32,6 @@ I enjoy understanding AI from both mathematical and system perspectives. My curr
 | 2023–2027 | Hong Kong University of Science and Technology | BSc in Data Science and Technology |
 | Mar 2026 – Aug 2026 | Technical University of Munich | Official Exchange Program |
 
-**CGA:** 3.8/4.3  
-**MCGA:** 3.97/4.3
-
----
-
-## 🍓 Featured Projects
-
-### 🌐 Random Walks and Percolation on Graphs
-**Undergraduate Research Opportunities · 2023–24**  
-Supervisor: **Prof. Maximilian Alexander Nitzschner**
-
-- Studied recurrence and transience, hitting times, stationary distributions, and long-term behavior on graph structures.
-- Reviewed percolation theory, connected components, and phase-transition phenomena on graphs.
-- Wrote a structured summary report synthesizing definitions, theoretical results, proof ideas, and examples.
-
-### 🧸 Multimodal Behavior Monitoring and Personalized Intervention
-**UROP · 2025–26**  
-Supervisor: **Prof. Xiaomin Ouyang**
-
-- Participated in experimental setup design using wearable IMU devices and camera-based pipelines.
-- Collected and organized multimodal behavioral data combining IMU signals and video recordings.
-- Explored multimodal action classification for autism-related intervention scenarios.
 
 ---
 
@@ -78,21 +54,12 @@ Supervisor: **Prof. Xiaomin Ouyang**
 
 ---
 
-## 🌷 GitHub Garden
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Chicnl&show_icons=true&hide_border=true&title_color=F59AB2&icon_color=F7C96B&text_color=6B5A62&bg_color=FFF8FA" height="165" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Chicnl&layout=compact&hide_border=true&title_color=F59AB2&text_color=6B5A62&bg_color=FFF8FA" height="165" />
-</div>
-
----
-
 <div align="center">
 
 ### 💌 Contact
 
 📧 ychenli@connect.ust.hk  
-🌐 [Personal Website](https://Chicnl.github.io) · 🐱 [GitHub](https://github.com/Chicnl)
+🌐 [Personal Website](https://Chicnl.github.io)
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=F8C8D8&height=90&section=footer" />
 
