@@ -15,6 +15,7 @@ Open `http://127.0.0.1:5173/Chen13754/`.
 
 ```sh
 npm run typecheck
+npm run format:check
 npm test
 npm run build
 npm run preview -- --port 4173
@@ -26,7 +27,15 @@ On Windows, if the PowerShell npm wrapper drops command-line options, use `npm.c
 
 ## Updating content
 
-Edit `src/content.ts` for the homepage identity and introduction, research, supervisors, dates, education, honors, and skills. `src/App.tsx` contains both layouts and their shared portrait, decoration, and motion preferences. `src/main.tsx` selects the page using the HTML entry's `data-page` marker. Preserve research status and distinguish planned work from completed contributions.
+Edit `src/profile.ts` for the homepage identity, introduction, and contact details; edit `src/content.ts` for research, supervisors, dates, education, honors, and skills. Preserve research status and distinguish planned work from completed contributions.
+
+`src/pages/` contains the two page layouts; `src/components/` contains their shared shell, portrait, animation primitives, and CV entries. Small interaction hooks live in `src/hooks/`. The HTML entries load `src/main.tsx` (home) or `src/cv.tsx` (CV); both use `src/mount.tsx`. This keeps CV content out of the homepage's initial JavaScript.
+
+`src/styles.css` imports base, garden, responsive, and home styles in cascade order. Keep this order when editing styles. `npm run format` applies the project's Prettier formatting. Formatting tools are development dependencies and do not ship to visitors.
+
+The build includes `scripts/check-build.mjs`, which checks the production manifest, asset paths, font preloads, and page separation, and reports each page's initial JavaScript bytes and gzip size including shared chunks. Animation features use synchronous `LazyMotion` with `domAnimation`: the same entrance, spring, viewport, and exit animations remain available without loading unused drag/layout features. See the [Motion documentation](https://motion.dev/docs/react-lazy-motion).
+
+Invisible portrait and scroll-cue CSS loops pause outside the viewport with a 200px wake-up margin. No per-frame scroll handler is used for section navigation. Animation durations, easing, particle counts, assets, and fonts remain unchanged.
 
 The original GitHub avatar is saved as `public/images/avatar.jpg` without altering its pixels. The decorative blossom illustration at `public/images/blossoms.webp` was created with the built-in ImageGen tool and encoded to WebP for delivery: an airy cherry-blossom and lavender branch on transparent background, fine ink and watercolor, pastel pink, lavender and muted sage, with a refined Japanese illustration influence and no text. The uncompressed original stays in the ignored local asset directory.
 

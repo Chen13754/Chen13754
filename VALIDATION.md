@@ -4,6 +4,8 @@ Verified locally on 2026-10-02 against the user-approved implementation plan, th
 
 ## Result
 
+This record describes the initial published version. Subsequent local code review and optimization, including the current test and bundle results, are recorded in [OPTIMIZATION_REVIEW.md](OPTIMIZATION_REVIEW.md).
+
 Local implementation: passed. This record covers the local review before publication. GitHub Pages deployment uses the workflow described below; its live status is available in the repository’s Actions tab.
 
 ## Automated checks
@@ -22,13 +24,13 @@ Production preview: `http://127.0.0.1:4173/Chen13754/` in the Codex in-app brows
 The root now presents a compact introduction; the original full garden is at `http://127.0.0.1:4173/Chen13754/cv/`. Both HTML entries are present in the production build. Enter on the homepage CV link opened the full page; refreshing the CV URL retained the correct page and metadata; activating the CV header brand returned to the homepage. Motion-off persisted between the two pages. Both pages were checked at the six widths below. The homepage exposes CV directly on mobile without an extra menu.
 
 | CSS viewport width | Content width, excluding scrollbar | Document scroll width |
-| --- | --- | --- |
-| 320 | 305 | 305 |
-| 360 | 345 | 345 |
-| 390 | 375 | 375 |
-| 768 | 753 | 753 |
-| 1280 | 1265 | 1265 |
-| 1440 | 1425 | 1425 |
+| ------------------ | ---------------------------------- | --------------------- |
+| 320                | 305                                | 305                   |
+| 360                | 345                                | 345                   |
+| 390                | 375                                | 375                   |
+| 768                | 753                                | 753                   |
+| 1280               | 1265                               | 1265                  |
+| 1440               | 1425                               | 1425                  |
 
 No horizontal overflow in the verified widths. Desktop, tablet, and mobile screenshots were inspected for layout, typography, avatar cropping, image transparency, and spacing.
 

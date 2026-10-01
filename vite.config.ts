@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: "/Chen13754/",
   build: {
-    rollupOptions: {
+    manifest: true,
+    rolldownOptions: {
       input: {
         home: fileURLToPath(new URL("./index.html", import.meta.url)),
         cv: fileURLToPath(new URL("./cv/index.html", import.meta.url)),

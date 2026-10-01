@@ -1,0 +1,248 @@
+/* A quiet front door to the full research garden. */
+.landing-header .landing-nav {
+  margin-left: auto;
+  display: flex;
+}
+.landing-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 4px;
+  font-size: 14px;
+  color: var(--plum);
+}
+.landing-nav a svg {
+  transition: transform 0.25s;
+}
+.landing-nav a:hover svg {
+  transform: translate(2px, -2px);
+}
+.landing-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.landing-main {
+  min-height: calc(100svh - 194px);
+  display: flex;
+  align-items: center;
+}
+.landing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 64px;
+  padding-block: 26px 38px;
+}
+.landing-copy {
+  padding-left: 30px;
+}
+.landing .hero-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  margin-bottom: 28px;
+}
+.landing h1 {
+  position: relative;
+  width: fit-content;
+  font-family: var(--serif);
+  font-size: clamp(84px, 8vw, 112px);
+  line-height: 0.91;
+  letter-spacing: -4px;
+  font-weight: 400;
+}
+.landing h1 em {
+  color: var(--plum);
+  font-weight: 500;
+}
+.landing-star {
+  position: absolute;
+  width: 29px;
+  height: 29px;
+  right: -40px;
+  top: 8px;
+  color: #9679a6;
+}
+.landing-identity {
+  margin-top: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  color: var(--plum);
+}
+.landing-bio {
+  margin-top: 17px;
+  font-size: 14px;
+  line-height: 1.95;
+  max-width: 420px;
+  color: var(--muted);
+}
+.landing-links {
+  display: flex;
+  gap: 29px;
+  margin-top: 25px;
+}
+.landing-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 10px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--line);
+  transition:
+    color 0.25s,
+    border-color 0.25s;
+}
+.landing-links a:hover {
+  color: var(--plum);
+  border-color: var(--plum);
+}
+.landing-portrait {
+  min-width: 0;
+}
+.landing-portrait .portrait-composition {
+  max-width: 470px;
+}
+.landing-portrait .curiosity-sticker,
+.landing-portrait .portrait-coordinate,
+.landing-portrait .portrait-caption {
+  display: none;
+}
+.landing-portrait .hero-blossoms {
+  opacity: 0.85;
+}
+.landing-footer {
+  min-height: 106px;
+  grid-template-columns: 1fr auto;
+}
+.landing-footer > a.footer-brand {
+  display: none;
+}
+.landing-footer > p {
+  text-align: left;
+}
+.landing-footer .footer-copyright {
+  grid-column: auto;
+  margin: 0;
+}
+@media (max-width: 1100px) {
+  .landing {
+    gap: 24px;
+  }
+  .landing-copy {
+    padding-left: 0;
+  }
+  .landing h1 {
+    font-size: 95px;
+  }
+  .landing-bio {
+    font-size: 13px;
+  }
+}
+@media (min-width: 761px) and (max-width: 900px) {
+  .landing {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 12px;
+  }
+  .landing h1 {
+    font-size: 83px;
+  }
+  .landing-portrait .portrait-composition {
+    transform: scale(0.77) !important;
+    transform-origin: center;
+  }
+  .landing .hero-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+}
+@media (max-width: 760px) {
+  .landing-header .header-inner {
+    gap: 17px;
+  }
+  .landing-header .brand > span {
+    font-size: 29px;
+  }
+  .landing-header .brand > svg {
+    width: 23px;
+  }
+  .landing-header .motion-toggle {
+    gap: 5px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+  }
+  .landing-header .motion-toggle > span:not(.toggle-track) {
+    display: none;
+  }
+  .landing {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-block: 46px 0;
+  }
+  .landing-copy {
+    text-align: center;
+  }
+  .landing .hero-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.13em;
+    margin-bottom: 25px;
+  }
+  .landing h1 {
+    font-size: 94px;
+    margin-inline: auto;
+  }
+  .landing-star {
+    width: 24px;
+    height: 24px;
+    right: -29px;
+  }
+  .landing-identity {
+    margin-top: 25px;
+    font-size: 11px;
+  }
+  .landing-bio {
+    max-width: 365px;
+    margin-inline: auto;
+    font-size: 13px;
+    line-height: 1.85;
+  }
+  .landing-links {
+    justify-content: center;
+    margin-top: 16px;
+  }
+  .landing-portrait .portrait-composition {
+    min-height: 520px;
+    margin-top: 0;
+  }
+  .landing-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    min-height: 110px;
+    padding-block: 23px;
+  }
+  .landing-footer > .footer-brand {
+    display: none;
+  }
+  .landing-footer > p {
+    max-width: none;
+    margin: 0;
+    font-size: 13px;
+    text-align: center;
+  }
+  .landing-footer .footer-copyright {
+    margin: 0;
+  }
+}
+@media (max-width: 380px) {
+  .landing h1 {
+    font-size: 86px;
+  }
+  .landing-header .header-inner {
+    gap: 12px;
+  }
+  .landing-portrait .portrait-composition {
+    min-height: 465px;
+  }
+}

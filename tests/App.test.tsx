@@ -1,7 +1,35 @@
-import React from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import App from "../src/App";
+import {
+  act,
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import HomePage from "../src/pages/HomePage";
+import CvPage from "../src/pages/CvPage";
+import { useCopyEmail } from "../src/hooks/useCopyEmail";
+
+function App({ page = "cv" }: { page?: "home" | "cv" }) {
+  return page === "home" ? <HomePage /> : <CvPage />;
+}
+
+function intersectionEntry(
+  target: Element,
+  isIntersecting: boolean,
+): IntersectionObserverEntry {
+  const rect = target.getBoundingClientRect();
+  return {
+    target,
+    isIntersecting,
+    boundingClientRect: rect,
+    intersectionRect: rect,
+    rootBounds: null,
+    intersectionRatio: isIntersecting ? 1 : 0,
+    time: 0,
+  };
+}
 
 const preference = vi.hoisted(() => ({ reduced: false }));
 vi.mock("motion/react", async (importOriginal) => {
@@ -14,6 +42,167 @@ beforeEach(() => {
 });
 
 describe("Research garden", () => {
+  it("marks Contact when the footer is visible even if Journey remains in the reading band", () => {
+    localStorage.setItem("garden-motion", "off");
+    const observers: {
+      callback: IntersectionObserverCallback;
+      options?: IntersectionObserverInit;
+    }[] = [];
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(
+          callback: IntersectionObserverCallback,
+          options?: IntersectionObserverInit,
+        ) {
+          observers.push({ callback, options });
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    render(<CvPage />);
+    const reading = observers.find(
+      (observer) => observer.options?.rootMargin === "-15% 0px -65% 0px",
+    )!;
+    const footer = observers.find((observer) => !observer.options)!;
+    const entry = (id: string, isIntersecting: boolean) =>
+      intersectionEntry(document.querySelector(id)!, isIntersecting);
+    const notify = (
+      observer: typeof reading,
+      value: IntersectionObserverEntry,
+    ) => act(() => observer.callback([value], {} as IntersectionObserver));
+    notify(reading, entry("#journey", true));
+    expect(
+      screen
+        .getByRole("link", { name: "Journey" })
+        .getAttribute("aria-current"),
+    ).toBe("location");
+    notify(footer, entry("footer", true));
+    expect(
+      screen
+        .getByRole("link", { name: "Contact" })
+        .getAttribute("aria-current"),
+    ).toBe("location");
+    notify(reading, entry("#journey", true));
+    expect(
+      screen
+        .getByRole("link", { name: "Contact" })
+        .getAttribute("aria-current"),
+    ).toBe("location");
+    notify(footer, entry("footer", false));
+    expect(
+      screen
+        .getByRole("link", { name: "Journey" })
+        .getAttribute("aria-current"),
+    ).toBe("location");
+  });
+
+  it("does not keep an old clipboard-success label after a failed retry", async () => {
+    localStorage.setItem("garden-motion", "off");
+    render(<CvPage />);
+    fireEvent.click(screen.getByRole("button", { name: "Copy email" }));
+    await screen.findByRole("button", { name: "Email copied" });
+    vi.mocked(navigator.clipboard.writeText).mockRejectedValueOnce(
+      new Error("Permission denied"),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Email copied" }));
+    await waitFor(() =>
+      expect(screen.getByRole("status").textContent).toContain(
+        "Copy unavailable",
+      ),
+    );
+    expect(screen.getByRole("button", { name: "Copy email" })).not.toBeNull();
+    expect(screen.queryByRole("button", { name: "Email copied" })).toBeNull();
+  });
+
+  it("ignores an older clipboard response after a newer copy attempt fails", async () => {
+    localStorage.setItem("garden-motion", "off");
+    let finishFirst!: () => void;
+    let failSecond!: (error: Error) => void;
+    vi.mocked(navigator.clipboard.writeText)
+      .mockReturnValueOnce(
+        new Promise<void>((resolve) => {
+          finishFirst = resolve;
+        }),
+      )
+      .mockReturnValueOnce(
+        new Promise<void>((_, reject) => {
+          failSecond = reject;
+        }),
+      );
+    render(<CvPage />);
+    const button = screen.getByRole("button", { name: "Copy email" });
+    fireEvent.click(button);
+    fireEvent.click(button);
+    await act(async () => failSecond(new Error("Permission denied")));
+    await act(async () => finishFirst());
+    expect(screen.getByRole("status").textContent).toContain(
+      "Copy unavailable",
+    );
+    expect(screen.queryByRole("button", { name: "Email copied" })).toBeNull();
+  });
+
+  it("does not create a timer when a pending clipboard request resolves after unmount", async () => {
+    vi.useFakeTimers();
+    try {
+      let finish!: () => void;
+      vi.mocked(navigator.clipboard.writeText).mockReturnValueOnce(
+        new Promise<void>((resolve) => {
+          finish = resolve;
+        }),
+      );
+      const hook = renderHook(() => useCopyEmail("ychenli@connect.ust.hk"));
+      const pending = hook.result.current.copyEmail();
+      hook.unmount();
+      finish();
+      await pending;
+      expect(vi.getTimerCount()).toBe(0);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("pauses portrait loops outside the viewport without disabling decorative motion", () => {
+    const observers: {
+      callback: IntersectionObserverCallback;
+      options?: IntersectionObserverInit;
+    }[] = [];
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(
+          callback: IntersectionObserverCallback,
+          options?: IntersectionObserverInit,
+        ) {
+          observers.push({ callback, options });
+        }
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      },
+    );
+    const view = render(<HomePage />);
+    const portrait = document.querySelector(
+      ".portrait-composition",
+    ) as HTMLElement;
+    const observer = observers.find(
+      (item) => item.options?.rootMargin === "200px",
+    )!;
+    for (const visible of [false, true]) {
+      act(() =>
+        observer.callback(
+          [intersectionEntry(portrait, visible)],
+          {} as IntersectionObserver,
+        ),
+      );
+      expect(portrait.dataset.inView).toBe(String(visible));
+      expect(document.documentElement.dataset.motion).toBe("on");
+    }
+    view.unmount();
+    expect(portrait.dataset.inView).toBeUndefined();
+  });
+
   it("makes the homepage a short introduction with one real CV navigation link", () => {
     render(<App page="home" />);
     expect(
