@@ -65,6 +65,9 @@ main,
   position: relative;
   z-index: 1;
 }
+main {
+  overflow-x: clip;
+}
 section {
   scroll-margin-top: 16px;
 }

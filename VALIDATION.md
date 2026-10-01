@@ -68,3 +68,5 @@ PDF rendering evidence: `tmp/cv-review/page-1.png` and `page-2.png`.
 The workflow runs the tests and production build, uploads `dist`, and deploys to GitHub Pages. It uses the `/Chen13754/` base path. The user accepted the local design and authorized publication on 2026-10-02. Pages uses the GitHub Actions source and deploys reviewed changes pushed to `main`.
 
 Public homepage: `https://chen13754.github.io/Chen13754/`. Full CV page: `https://chen13754.github.io/Chen13754/cv/`.
+
+Live verification on 2026-10-02: GitHub Actions build and deployment succeeded; both public HTML entries and image assets returned HTTP 200. Opening and refreshing the CV page retained its content and metadata. The downloaded public PDF's SHA-256 matched the locally verified public copy. Browser console inspection found no warnings or errors. Horizontal decorative overflow is clipped at the main content boundary.
